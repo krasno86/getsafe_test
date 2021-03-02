@@ -1,5 +1,5 @@
-require 'csv'
 require 'httparty'
+require 'uri'
 
 class ImageSaver
   attr_reader :text_file, :image_folder
@@ -10,12 +10,13 @@ class ImageSaver
   end
 
   def call
-    csv_text = File.read(text_file)
-    csv = CSV.parse(csv_text, headers: false)
+    text = File.open(text_file).read
+    text.gsub!(/\r\n?/, "\n")
     idx = 0
-    csv.each do |row|
+    text.each_line do |row|
       idx += 1
-      response = HTTParty.get(row.first)
+      row.scan(URI.regexp)
+      response = HTTParty.get(row)
 
       if response.code == 200
         File.open(image_folder.concat("/image_#{idx}.png"), 'wb') do |file|
@@ -29,4 +30,4 @@ class ImageSaver
   end
 end
 
-# ImageSaver.new('files/1.txt').call
+ImageSaver.new('files/1.txt').call
