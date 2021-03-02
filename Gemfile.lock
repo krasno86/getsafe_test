@@ -1,6 +1,40 @@
+GIT
+  remote: https://github.com/rspec/rspec-core.git
+  revision: ea8554afd1a2b63677c6593059fa8f2476181deb
+  branch: main
+  specs:
+    rspec-core (3.11.0.pre)
+      rspec-support (= 3.11.0.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-expectations.git
+  revision: 4e7011fe8ac68b74621336b07f894879c8da202d
+  branch: main
+  specs:
+    rspec-expectations (3.11.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.11.0.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-mocks.git
+  revision: 97c972be57f2c060a4a7fb8a3c5700a5ede693f0
+  branch: main
+  specs:
+    rspec-mocks (3.11.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.11.0.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-support.git
+  revision: d04c8aef72d030fc354902f1e1b486b5c21e0732
+  branch: main
+  specs:
+    rspec-support (3.11.0.pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.4.4)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -14,6 +48,10 @@ PLATFORMS
 
 DEPENDENCIES
   httparty (~> 0.18.1)
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-support!
 
 RUBY VERSION
    ruby 2.6.3p62
