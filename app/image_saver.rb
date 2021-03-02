@@ -12,9 +12,7 @@ csv.each do |row|
     File.open("images/image_#{idx}.png", 'wb') do |file|
       file.write response
     end
-
   else
-    render json: { code: response.code, message: 'Something went wrong' }
+    puts code: response.code, message: "Something went wrong: #{response.response}"
   end
 end
-
