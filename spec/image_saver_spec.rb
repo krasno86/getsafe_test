@@ -7,7 +7,7 @@ RSpec.describe ImageSaver do
       dir = 'spec/fixtures/test_images'
       FileUtils.rm_rf(Dir["#{dir}/*"])
       Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }
-      ImageSaver.new('files/1.txt', dir).call
+      ImageSaver.new('spec/fixtures/files/1.txt', dir).call
       expect(Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }) == 1
     end
   end
