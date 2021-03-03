@@ -34,5 +34,3 @@ class ImageSaver
     end
   end
 end
-
-ImageSaver.new('files/1.txt').call
