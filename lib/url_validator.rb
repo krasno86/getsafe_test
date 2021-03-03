@@ -4,7 +4,7 @@ module UrlValidator
     if row.slice(URI::DEFAULT_PARSER.make_regexp(%w[http https])) == row
       begin
         Down.open(row)
-      rescue  => e
+      rescue StandardError => e
         puts "Rescued: #{e.inspect}"
         return false
       end
