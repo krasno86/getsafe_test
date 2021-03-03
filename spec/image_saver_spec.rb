@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../lib/image_saver'
 
 RSpec.describe ImageSaver do
-  describe '.call' do
+  describe '.call', :vcr do
     let(:dir) { 'spec/fixtures/test_images/' }
     describe 'success' do
       before { FileUtils.rm_rf(Dir["#{dir}/*"]) }

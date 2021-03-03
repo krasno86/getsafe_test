@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://images.unsplash.com/photo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Down/5.2.0
+      Accept-Encoding:
+      - ''
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - imgix
+      X-Imgix-Id:
+      - 63d4bbd6b0888d8e7f1ac87e81bda5af3ae5e4b6
+      Date:
+      - Wed, 03 Mar 2021 13:53:21 GMT
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      Set-Cookie:
+      - ugid=26aa03af9885bab74073e8b85128f9245382598;domain=.unsplash.com;path=/;expires=Thu,
+        03 Mar 2022 13:53:21 GMT;SameSite=None;Secure
+      Content-Type:
+      - text/html
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - cache-sjc10032-SJC, cache-vie21625-VIE
+      X-Cache:
+      - MISS, MISS
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: "<html><body>404</body></html>"
+  recorded_at: Wed, 03 Mar 2021 13:53:21 GMT
+recorded_with: VCR 6.0.0
