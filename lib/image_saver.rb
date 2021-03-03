@@ -8,6 +8,7 @@ READ_TIMEOUT = 5
 MAX_REDIRECTS = 0
 
 class ImageSaver
+  extend UrlValidator
   attr_reader :text_file, :image_folder
 
   def initialize(text_file, image_folder = 'images/')
@@ -18,7 +19,7 @@ class ImageSaver
   def call
     Dir.mkdir('./images') unless File.exist?('./images')
     File.readlines(text_file).each do |row|
-      next unless UrlValidator.valid_url?(row)
+      next unless ImageSaver.valid_url?(row)
       tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS)
 
       File.open(image_folder.concat(row.split('/').last), 'a') do |file|
