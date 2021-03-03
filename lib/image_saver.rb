@@ -1,5 +1,7 @@
-require 'httparty'
+# frozen_string_literal: true
+
 require 'uri'
+require 'down'
 
 class ImageSaver
   attr_reader :text_file, :image_folder
@@ -9,26 +11,25 @@ class ImageSaver
     @image_folder = image_folder
   end
 
-  def self.valid_url?(url)
-    url.slice(URI::regexp(%w(http https))) == url
-  end
-
   def call
     text = File.read(text_file).split
+    Dir.mkdir('./images') unless File.exist?('./images')
     text.each do |row|
-      if row.slice(URI::regexp(%w(http https))) == row
-        response = HTTParty.get(row)
+      status = Down.open(row).data[:status]
 
-        if response.code == 200
+      if row.slice(URI::DEFAULT_PARSER.make_regexp(%w[http https])) == row && status == 200
+        tempfile = Down.download(row, max_size: 5 * 1024 * 1024)
+
+        if tempfile.content_type == 'image/jpeg'
           File.open(image_folder.concat(row.split('/').last), 'a') do |file|
-            file.write response
-            puts code: response.code, message: 'Ok!'
+            file.write tempfile
+            puts code: status, message: 'Ok!'
           end
         else
-          puts code: response.code, message: "Something went wrong: #{response.response}"
+          p 'Wrong format!'
         end
       else
-        p 'invalid url'
+        p code: status, message: 'Or invalid url'
       end
     end
   end
