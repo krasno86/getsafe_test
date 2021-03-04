@@ -19,11 +19,12 @@ module ImageDownloader
 
   def tempfile_exist?(row)
     begin
-      tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS)
+      tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS, destination: 'images')
     rescue StandardError => e
       puts "Rescued: #{e.inspect}"
       return false
     end
+    p code: :ok
     tempfile
   end
 end
