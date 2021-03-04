@@ -19,5 +19,4 @@ class ImageSaver
   end
 end
 
-ImageSaver.new('files/1.txt').call
-# ImageSaver.new(ARGV[0]).call
+ImageSaver.new(ARGV[0]).call
