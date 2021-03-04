@@ -1,14 +1,10 @@
-require_relative '../lib/url_validator'
+require_relative '../lib/image_downloader'
 require 'uri'
 require 'down'
 require 'resque'
 
-MAX_SIZE = 5 * 1024 * 1024
-READ_TIMEOUT = 5
-MAX_REDIRECTS = 0
-
 class ImageSaver
-  extend UrlValidator
+  extend ImageDownloader
   attr_reader :text_file, :image_folder
 
   def initialize(text_file, image_folder = 'images/')
@@ -19,10 +15,8 @@ class ImageSaver
   def call
     Dir.mkdir('./images') unless File.exist?('./images')
     File.readlines(text_file).each do |row|
-      next unless ImageSaver.valid_url?(row)
-
-      tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS)
-
+      tempfile = ImageSaver.tempfile_exist?(row)
+      next unless tempfile
       File.open(image_folder.concat(row.split('/').last), 'a') do |file|
         file.write tempfile
         puts code: :ok
@@ -30,3 +24,4 @@ class ImageSaver
     end
   end
 end
+ImageSaver.new('files/1.txt').call
