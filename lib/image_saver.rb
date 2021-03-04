@@ -6,7 +6,7 @@ class ImageSaver
   extend ImageDownloader
   attr_reader :text_file
 
-  def initialize(text_file, _image_folder = 'images/')
+  def initialize(text_file)
     @text_file = text_file
   end
 
