@@ -9,14 +9,14 @@ RSpec.describe ImageSaver do
     before { FileUtils.rm_rf(Dir["#{dir}/*"]) }
     describe 'success' do
       it 'save images' do
-        ImageSaver.new('spec/fixtures/files/1.txt', dir).call
+        ImageSaver.new('spec/fixtures/files/1.txt').call
         expect(Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }) == 2
       end
     end
 
     describe 'failure' do
       it 'fail saving images' do
-        ImageSaver.new('spec/fixtures/files/broken_link.txt', dir).call
+        ImageSaver.new('spec/fixtures/files/broken_link.txt').call
         expect(Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }).to eq(0)
       end
     end
