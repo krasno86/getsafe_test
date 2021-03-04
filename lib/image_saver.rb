@@ -1,7 +1,4 @@
 require_relative '../lib/image_downloader'
-require 'uri'
-require 'down'
-require 'resque'
 
 class ImageSaver
   extend ImageDownloader
@@ -15,7 +12,7 @@ class ImageSaver
   def call
     Dir.mkdir('./images') unless File.exist?('./images')
     File.readlines(text_file).each do |row|
-      tempfile = ImageSaver.tempfile_exist?(row)
+      tempfile = ImageSaver.download_tempfile(row)
       next unless tempfile
       File.open(image_folder.concat(row.split('/').last), 'a') do |file|
         file.write tempfile
@@ -24,4 +21,3 @@ class ImageSaver
     end
   end
 end
-ImageSaver.new('files/1.txt').call
