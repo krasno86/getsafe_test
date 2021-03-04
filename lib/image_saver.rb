@@ -14,6 +14,7 @@ class ImageSaver
     File.readlines(text_file).each do |row|
       tempfile = ImageSaver.download_tempfile(row)
       next unless tempfile
+
       File.open(image_folder.concat(row.split('/').last), 'a') do |file|
         file.write tempfile
         puts code: :ok
