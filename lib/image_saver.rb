@@ -13,8 +13,7 @@ class ImageSaver
   def call
     Dir.mkdir('./images') unless File.exist?('./images')
     File.readlines(text_file).each do |row|
-      image = ImageSaver.download_image(row)
-      next unless image
+      ImageSaver.download_image(row)
     end
   end
 end
