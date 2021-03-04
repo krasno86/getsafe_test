@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require_relative '../lib/image_downloader'
 
 class ImageSaver
   extend ImageDownloader
-  attr_reader :text_file, :image_folder
+  attr_reader :text_file
 
-  def initialize(text_file, image_folder = 'images/')
+  def initialize(text_file, _image_folder = 'images/')
     @text_file = text_file
-    @image_folder = image_folder
   end
 
   def call
@@ -17,3 +18,6 @@ class ImageSaver
     end
   end
 end
+
+ImageSaver.new('files/1.txt').call
+# ImageSaver.new(ARGV[0]).call

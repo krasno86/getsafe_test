@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 require 'down'
 require 'resque'
@@ -5,6 +7,7 @@ require 'resque'
 MAX_SIZE = 5 * 1024 * 1024
 READ_TIMEOUT = 5
 MAX_REDIRECTS = 0
+DESTINATON = 'images'
 
 module ImageDownloader
   def download_image(row)
@@ -20,7 +23,7 @@ module ImageDownloader
   def tempfile_exist?(row)
     begin
       tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS,
-                                    destination: 'images')
+                                    destination: DESTINATON)
     rescue StandardError => e
       puts "Rescued: #{e.inspect}"
       return false
