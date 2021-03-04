@@ -7,7 +7,7 @@ READ_TIMEOUT = 5
 MAX_REDIRECTS = 0
 
 module ImageDownloader
-  def download_tempfile(row)
+  def download_image(row)
     row.chomp!
     if row.slice(URI::DEFAULT_PARSER.make_regexp(%w[http https])) == row
       tempfile_exist?(row)
@@ -19,7 +19,8 @@ module ImageDownloader
 
   def tempfile_exist?(row)
     begin
-      tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS, destination: 'images')
+      tempfile = Down.download(row, max_size: MAX_SIZE, read_timeout: READ_TIMEOUT, max_redirects: MAX_REDIRECTS,
+                                    destination: 'images')
     rescue StandardError => e
       puts "Rescued: #{e.inspect}"
       return false
